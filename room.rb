@@ -1,5 +1,5 @@
 class Room 
-    attr_reader :name, :capacity, :playlist, :guests, :bar
+    attr_reader :name, :capacity, :playlist, :guests, :bar, :waiting_list
 
     def initialize(name, capacity, entry_fee, playlist)
         @name = name 
@@ -12,10 +12,17 @@ class Room
     end
 
     def check_in(guest)
-        @guests.push(guest)
-        @capacity -= 1
-        @bar.increase_entry_fees(@entry_fee)
-        guest.withdraw(@entry_fee)
+        if(guest.can_afford(@entry_fee))
+            if(@capacity > 0)
+                @guests.push(guest)
+                @capacity -= 1
+                @bar.increase_entry_fees(@entry_fee)
+                guest.withdraw(@entry_fee)
+            else
+                @waiting_list.push(guest)
+            end
+        end
     end
 
 end
+
