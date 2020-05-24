@@ -68,4 +68,13 @@ class RoomTest < Minitest::Test
         assert_equal([@guest4], @room2.waiting_list)
     end
 
+    def test_play_next_song()
+        @room1.check_in(@guest1)
+        @room1.check_in(@guest3)
+        assert_equal(@song1, @room1.play_next_song())
+        assert_equal(@song2, @room1.play_next_song())
+        assert_equal(@song3, @room1.play_next_song())
+        assert_nil(nil)
+    end
+
 end

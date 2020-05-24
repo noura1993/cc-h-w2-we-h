@@ -7,6 +7,7 @@ class Room
         @entry_fee = entry_fee
         @playlist = playlist
         @guests = []
+        @current_song_index = 0
         @waiting_list = []
         @bar = Bar.new()
     end
@@ -22,6 +23,20 @@ class Room
                 @waiting_list.push(guest)
             end
         end
+    end
+
+    def play_next_song()
+        current_song = @playlist[@current_song_index]
+
+        @guests.each do |guest| 
+            cheer = guest.cheer(current_song)
+            if(cheer != nil)
+                p "#{guest.name} said #{cheer}"
+            end
+        end
+        
+        @current_song_index += 1
+        return current_song
     end
 
 end
