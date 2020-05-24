@@ -8,4 +8,8 @@ class Guest
         @wants_to_sing = wants_to_sing
     end
 
+    def can_afford(amount)
+        return @wallet >= amount
+    end
+
 end
