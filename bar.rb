@@ -14,4 +14,17 @@ class Bar
     def increase_till(drink)
         @till += drink.price
     end
+
+    def add_to_stock(drink)
+        if(@stock.include?(drink))
+            @stock[drink] += 1
+        else
+            @stock[drink] = 1
+        end
+    end
+
+    def stock_count(drink)
+        return 0 if(!@stock.include?(drink))
+        return @stock[drink]
+    end
 end
