@@ -14,9 +14,10 @@ class GuestTest < Minitest::Test
         @guest2 = Guest.new("Mike", 60, @song2, false)
     end
 
-    def test_guest_name_and_wallet()
+    def test_guest_getters()
         assert_equal("Rose", @guest1.name)
         assert_equal(120, @guest1.wallet)
+        assert_equal(true, @guest1.wants_to_sing)
     end
 
     def test_can_afford__true()
@@ -43,6 +44,5 @@ class GuestTest < Minitest::Test
         result = @guest2.cheer(@song1)
         assert_nil(result)
     end
-
 
 end
