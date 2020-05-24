@@ -34,9 +34,17 @@ class Room
                 p "#{guest.name} said #{cheer}"
             end
         end
-        
+
         @current_song_index += 1
         return current_song
+    end
+
+    def purchase_drink(guest, drink)
+        if(@guests.include?(guest) && guest.can_afford(drink.price) && @bar.stock_count(drink) > 0)
+            @bar.increase_till(drink)
+            guest.withdraw(drink.price)
+            @bar.decrease_stock(drink)
+        end
     end
 
 end

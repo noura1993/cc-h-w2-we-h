@@ -10,14 +10,13 @@ class GuestTest < Minitest::Test
     def setup()
         @song1 = Song.new("Roar")
         @song2 = Song.new("Hotel California")
-        @guest1 = Guest.new("Rose", 120, @song1, true)
-        @guest2 = Guest.new("Mike", 60, @song2, false)
+        @guest1 = Guest.new("Rose", 120, @song1)
+        @guest2 = Guest.new("Mike", 60, @song2)
     end
 
     def test_guest_getters()
         assert_equal("Rose", @guest1.name)
         assert_equal(120, @guest1.wallet)
-        assert_equal(true, @guest1.wants_to_sing)
     end
 
     def test_can_afford__true()

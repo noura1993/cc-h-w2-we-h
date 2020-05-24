@@ -17,13 +17,14 @@ class RoomTest < Minitest::Test
 
         @playlist = [@song1, @song2, @song3]
         
-        @guest1 = Guest.new("Rose", 120, @song1, true)
-        @guest2 = Guest.new("Mike", 60, @song2, false)
-        @guest3 = Guest.new("Harry", 500, @song1, true)
-        @guest4 = Guest.new("Lily", 700, @song2, true)
+        @guest1 = Guest.new("Rose", 120, @song1)
+        @guest2 = Guest.new("Mike", 60, @song2)
+        @guest3 = Guest.new("Harry", 500, @song1)
+        @guest4 = Guest.new("Lily", 700, @song2)
 
         @drink1 = Drink.new("Coca Cola", 2)
         @drink2 = Drink.new("Pina Colada", 5)
+        @drink3 = Drink.new("Secret Drink", 100)
 
         @room1 = Room.new("Crazy Room", 10, 65, @playlist)
         @room2 = Room.new("VIP Room", 2, 100, @playlist)
@@ -32,6 +33,7 @@ class RoomTest < Minitest::Test
         @room1.bar.add_to_stock(@drink1)
         @room1.bar.add_to_stock(@drink1)
         @room1.bar.add_to_stock(@drink2)
+        @room1.bar.add_to_stock(@drink3)
     end
 
     def test_room_getters()
@@ -75,6 +77,29 @@ class RoomTest < Minitest::Test
         assert_equal(@song2, @room1.play_next_song())
         assert_equal(@song3, @room1.play_next_song())
         assert_nil(nil)
+    end
+
+    def test_purchase_drink__can_afford()
+        @room1.check_in(@guest1)
+        @room1.purchase_drink(@guest1, @drink1)
+        assert_equal(53, @guest1.wallet)
+        assert_equal(2, @room1.bar.till)
+        assert_equal(2, @room1.bar.stock_count(@drink1))
+    end
+
+    def test_purchase_drink__cannot_afford()
+        @room1.check_in(@guest1)
+        @room1.purchase_drink(@guest1, @drink3)
+        assert_equal(60, @guest2.wallet)
+        assert_equal(0, @room1.bar.till)
+        assert_equal(1, @room1.bar.stock_count(@drink3))
+    end
+
+    def test_purchase_drink__not_in_room()
+        @room1.purchase_drink(@guest2, @drink1)
+        assert_equal(60, @guest2.wallet)
+        assert_equal(0, @room1.bar.till)
+        assert_equal(3, @room1.bar.stock_count(@drink1))
     end
 
 end
