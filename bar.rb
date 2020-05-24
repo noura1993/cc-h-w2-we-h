@@ -11,4 +11,7 @@ class Bar
         @total_fees += amount
     end
 
+    def increase_till(drink)
+        @till += drink.price
+    end
 end
