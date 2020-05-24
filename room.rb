@@ -47,5 +47,17 @@ class Room
         end
     end
 
+    def check_out(guest)
+        if(@guests.include?(guest))
+            index = @guests.index(guest)
+            @guests.delete_at(index)
+            @capacity += 1
+            if(@waiting_list.length != 0)
+                next_guest = @waiting_list.shift()
+                check_in(next_guest)
+            end
+        end
+    end
+
 end
 

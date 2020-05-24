@@ -102,4 +102,18 @@ class RoomTest < Minitest::Test
         assert_equal(3, @room1.bar.stock_count(@drink1))
     end
 
+    def test_check_out()
+        @room2.check_in(@guest1)
+        @room2.check_in(@guest3)
+        @room2.check_in(@guest4)
+        @room2.check_out(@guest1)
+        assert_equal([@guest3, @guest4], @room2.guests)
+        assert_equal(0, @room2.capacity)
+        assert_equal(300, @room2.bar.total_fees)
+        assert_equal(20, @guest1.wallet)
+        assert_equal(400, @guest3.wallet)
+        assert_equal(600, @guest4.wallet)
+        assert_equal([], @room2.waiting_list)
+    end
+
 end
