@@ -31,5 +31,15 @@ class BarTest < Minitest::Test
     def test_unavailable_stock()  
         assert_equal(0, @bar.stock_count(@drink))
     end
-    
+
+    def test_decrease_stock()  
+        @bar.add_to_stock(@drink)
+        @bar.add_to_stock(@drink)
+        @bar.decrease_stock(@drink)
+
+        @bar.decrease_stock(@drink)
+        @bar.decrease_stock(@drink)
+        assert_equal(1, @bar.stock_count(@drink))
+    end
+
 end
