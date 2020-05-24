@@ -29,7 +29,8 @@ class Bar
     end
 
     def decrease_stock(drink)
-        # if(!@stock.include?(drink))  
-        @stock[drink] -= 1
+        if(stock_count(drink) > 0)  
+            @stock[drink] -= 1
+        end
     end
 end
