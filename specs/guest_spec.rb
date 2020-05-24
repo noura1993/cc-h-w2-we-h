@@ -26,4 +26,10 @@ class GuestTest < Minitest::Test
         assert_equal(false, result)
     end
 
+    def test_withdraw()
+        @guest1.withdraw(65)
+        assert_equal(55, @guest1.wallet)
+    end
+
+
 end

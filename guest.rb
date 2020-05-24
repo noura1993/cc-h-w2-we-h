@@ -12,4 +12,8 @@ class Guest
         return @wallet >= amount
     end
 
+    def withdraw(amount)
+        @wallet -= amount if can_afford(amount)
+    end
+
 end
