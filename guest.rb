@@ -16,4 +16,8 @@ class Guest
         @wallet -= amount if can_afford(amount)
     end
 
+    def cheer(song)
+        return "Whoo!" if @fav_song == song
+    end
+
 end
